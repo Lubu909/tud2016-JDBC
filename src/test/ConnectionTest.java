@@ -25,7 +25,7 @@ public class ConnectionTest {
 		assertNotNull(accountManager.getConnection());
 		assertNotNull(characterListManager.getConnection());
 	}
-	
+
 	@Test
 	public void CharacterAddTest(){
 		Character chara = new Character("Test", "Warrior", "Human", 90);
@@ -36,17 +36,19 @@ public class ConnectionTest {
 		assertEquals(chara.getNick(),chars.get(0).getNick());
 	}
 	
-	/*@Test
-	public void checkList(){
-		addAccount();
-		addCharacter();
-		addCharacter();
-		viewCharacterList();
-	}*/
-
-	/*@Test
-	public void test() {
+	@Test
+	public void AccountAddTest(){
+		Account acc = new Account("KontoTestowe", "1234");
+		accountManager.clearAccount();
+		assertEquals(1,accountManager.addAccount(acc));
+		List<Account> accs = accountManager.getAll();
+		assertEquals(1,accs.size());
+		assertEquals(acc.getLogin(),accs.get(0).getLogin());
+	}
+	
+	@Test
+	public void CharacterListAddTest(){
 		fail("Not yet implemented");
-	}*/
+	}
 
 }

@@ -8,7 +8,6 @@ public class Character {
 	private int level;
 	
 	public Character(){
-		
 	}
 	
 	public Character(int idCharacter, String nick, String characterClass, String characterRace, int level) {

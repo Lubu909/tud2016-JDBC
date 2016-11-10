@@ -6,6 +6,33 @@ public class Account {
 	private String password;
 	private String registrationDate;
 	private String lastLoginDate;
+	
+	public Account(){
+	}
+	
+	public Account(String login, String password) {
+		super();
+		this.login = login;
+		this.password = password;
+	}
+
+	public Account(int id, String login, String password, String registrationDate, String lastLoginDate) {
+		super();
+		this.id = id;
+		this.login = login;
+		this.password = password;
+		this.registrationDate = registrationDate;
+		this.lastLoginDate = lastLoginDate;
+	}
+	
+	public Account(String login, String password, String registrationDate, String lastLoginDate) {
+		super();
+		this.login = login;
+		this.password = password;
+		this.registrationDate = registrationDate;
+		this.lastLoginDate = lastLoginDate;
+	}
+
 	public int getId() {
 		return id;
 	}

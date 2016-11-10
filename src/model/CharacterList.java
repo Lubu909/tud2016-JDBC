@@ -5,6 +5,15 @@ public class CharacterList {
 	private int idAccount;
 	private int idCharacter;
 	
+	public CharacterList() {
+	}
+	
+	public CharacterList(int idAccount, int idCharacter) {
+		super();
+		this.idAccount = idAccount;
+		this.idCharacter = idCharacter;
+	}
+
 	public int getIdCharacterList() {
 		return idCharacterList;
 	}
