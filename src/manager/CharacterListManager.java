@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import model.Account;
+import model.Character;
+
 public class CharacterListManager {
 	//"SELECT a.login, c.nick, c.characterclass, c.characterrace, c.level FROM characterList as cl left join account as a on cl.idAccount=a.idAccount left join character as c on c.idCharacter=cl.idCharacter where idAccount=1;"
 	private Connection conn;

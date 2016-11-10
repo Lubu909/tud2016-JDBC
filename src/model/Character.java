@@ -20,6 +20,14 @@ public class Character {
 		this.level = level;
 	}
 	
+	public Character(String nick, String characterClass, String characterRace, int level) {
+		super();
+		this.nick = nick;
+		this.characterClass = characterClass;
+		this.characterRace = characterRace;
+		this.level = level;
+	}
+	
 	public int getIdCharacter() {
 		return idCharacter;
 	}
