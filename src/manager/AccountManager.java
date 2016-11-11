@@ -18,6 +18,8 @@ public class AccountManager implements IAccountManager{
 	private PreparedStatement addAccountStmt;
 	private PreparedStatement delAccountStmt;
 	private PreparedStatement delAllAccountStmt;
+	private PreparedStatement getAccountStmt;
+	private PreparedStatement getAccountIdStmt;
 	private PreparedStatement listAccountStmt;
 	
 	public AccountManager(){
@@ -36,6 +38,8 @@ public class AccountManager implements IAccountManager{
 			addAccountStmt = conn.prepareStatement("INSERT INTO Account(login, password) VALUES (?,?)");
 			delAccountStmt = conn.prepareStatement("DELETE FROM Account WHERE idAccount = ?");
 			delAllAccountStmt = conn.prepareStatement("DELETE FROM Account");
+			getAccountStmt = conn.prepareStatement("SELECT * FROM Account WHERE login = ?");
+			getAccountIdStmt = conn.prepareStatement("SELECT * FROM Account WHERE idAccount = ?");
 			listAccountStmt = conn.prepareStatement("SELECT * FROM Account");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -80,7 +84,9 @@ public class AccountManager implements IAccountManager{
 	public int clearAccount() {
 		int ilosc = 0;
 		try{
+			conn.setAutoCommit(false);
 			ilosc = delAllAccountStmt.executeUpdate();
+			conn.commit();
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -105,5 +111,43 @@ public class AccountManager implements IAccountManager{
 			e.printStackTrace();
 		}
 		return accounts;
+	}
+
+	@Override
+	public Account getAccount(String login) {
+		Account acc = new Account();
+		try{
+			getAccountStmt.setString(1, login);
+			ResultSet rs = getAccountStmt.executeQuery();
+			while(rs.next()){
+				acc.setId(rs.getInt("idAccount"));
+				acc.setLogin(rs.getString("login"));
+				acc.setPassword(rs.getString("password"));
+				acc.setRegistrationDate(rs.getString("registrationDate"));
+				acc.setLastLoginDate(rs.getString("lastLogin"));
+			}
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		return acc;
+	}
+	
+	@Override
+	public Account getAccount(int id) {
+		Account acc = new Account();
+		try{
+			getAccountIdStmt.setInt(1, id);
+			ResultSet rs = getAccountIdStmt.executeQuery();
+			while(rs.next()){
+				acc.setId(rs.getInt("idAccount"));
+				acc.setLogin(rs.getString("login"));
+				acc.setPassword(rs.getString("password"));
+				acc.setRegistrationDate(rs.getString("registrationDate"));
+				acc.setLastLoginDate(rs.getString("lastLogin"));
+			}
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		return acc;
 	}
 }

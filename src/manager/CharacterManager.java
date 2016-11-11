@@ -12,6 +12,8 @@ public class CharacterManager implements ICharacterManager{
 	private PreparedStatement addCharacterStmt;
 	private PreparedStatement delCharacterStmt;
 	private PreparedStatement delAllCharacterStmt;
+	private PreparedStatement getCharacterStmt;
+	private PreparedStatement getCharacterIdStmt;
 	private PreparedStatement listCharacterStmt;
 	
 	public CharacterManager(){
@@ -30,6 +32,8 @@ public class CharacterManager implements ICharacterManager{
 			addCharacterStmt = conn.prepareStatement("INSERT INTO Character(nick, characterClass, characterRace, level) VALUES (?,?,?,?)");
 			delCharacterStmt = conn.prepareStatement("DELETE FROM Character WHERE idCharacter = ?");
 			delAllCharacterStmt = conn.prepareStatement("DELETE FROM Character");
+			getCharacterStmt = conn.prepareStatement("SELECT * FROM Character WHERE nick = ?");
+			getCharacterIdStmt = conn.prepareStatement("SELECT * FROM Character WHERE idCharacter = ?");
 			listCharacterStmt = conn.prepareStatement("SELECT * FROM Character");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -76,7 +80,9 @@ public class CharacterManager implements ICharacterManager{
 	public int clearCharacter(){
 		int ilosc = 0;
 		try{
+			conn.setAutoCommit(false);
 			ilosc = delAllCharacterStmt.executeUpdate();
+			conn.commit();
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -102,5 +108,41 @@ public class CharacterManager implements ICharacterManager{
 		}
 		return chars;
 	}
+
+	@Override
+	public Character getCharacter(String nick) {
+		Character chara = new Character();
+		try{
+			getCharacterStmt.setString(1, nick);
+			ResultSet rs = getCharacterStmt.executeQuery();
+			while(rs.next()){
+				chara.setIdCharacter(rs.getInt("idCharacter"));
+				chara.setNick(rs.getString("nick"));
+				chara.setCharacterClass(rs.getString("characterClass"));
+				chara.setCharacterRace(rs.getString("characterRace"));
+				chara.setLevel(rs.getInt("level"));
+			}
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		return chara;
+	}
 	
+	public Character getCharacter(int id) {
+		Character chara = new Character();
+		try{
+			getCharacterIdStmt.setInt(1, id);
+			ResultSet rs = getCharacterIdStmt.executeQuery();
+			while(rs.next()){
+				chara.setIdCharacter(rs.getInt("idCharacter"));
+				chara.setNick(rs.getString("nick"));
+				chara.setCharacterClass(rs.getString("characterClass"));
+				chara.setCharacterRace(rs.getString("characterRace"));
+				chara.setLevel(rs.getInt("level"));
+			}
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		return chara;
+	}
 }

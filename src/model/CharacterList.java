@@ -2,16 +2,10 @@ package model;
 
 public class CharacterList {
 	private int idCharacterList;
-	private int idAccount;
-	private int idCharacter;
+	private Account account;
+	private Character character;
 	
 	public CharacterList() {
-	}
-	
-	public CharacterList(int idAccount, int idCharacter) {
-		super();
-		this.idAccount = idAccount;
-		this.idCharacter = idCharacter;
 	}
 
 	public int getIdCharacterList() {
@@ -20,16 +14,20 @@ public class CharacterList {
 	public void setIdCharacterList(int idCharacterList) {
 		this.idCharacterList = idCharacterList;
 	}
-	public int getIdAccount() {
-		return idAccount;
+
+	public Account getAccount() {
+		return account;
 	}
-	public void setIdAccount(int idAccount) {
-		this.idAccount = idAccount;
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
-	public int getIdCharacter() {
-		return idCharacter;
+
+	public Character getCharacter() {
+		return character;
 	}
-	public void setIdCharacter(int idCharacter) {
-		this.idCharacter = idCharacter;
+
+	public void setCharacter(Character character) {
+		this.character = character;
 	}
 }
