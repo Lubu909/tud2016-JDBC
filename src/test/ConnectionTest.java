@@ -170,6 +170,41 @@ public class ConnectionTest {
 	}
 	
 	@Test
+	public void CharacterListDeleteTest(){
+		characterManager.clearCharacter();
+		accountManager.clearAccount();
+		
+		Account acc1 = new Account("Account1" + (int)(Math.random() *1001), "qwerty");
+		Character char1 = new Character("Char1" + (int)(Math.random() *1001), "Warrior", "Elf", 110);
+		Character char2 = new Character("Char2" + (int)(Math.random() *1001), "Warrior", "Elf", 110);
+		Character char3 = new Character("Char3" + (int)(Math.random() *1001), "Warrior", "Elf", 110);
+		
+		assertEquals(1,accountManager.addAccount(acc1));
+		assertEquals(1,characterManager.addCharacter(char1));
+		assertEquals(1,characterManager.addCharacter(char2));
+		assertEquals(1,characterManager.addCharacter(char3));
+		
+		acc1 = accountManager.getAccount(acc1.getLogin());
+		char1 = characterManager.getCharacter(char1.getNick());
+		char2 = characterManager.getCharacter(char2.getNick());
+		char3 = characterManager.getCharacter(char3.getNick());
+		assertEquals(1,characterListManager.addCharacterToAcc(acc1, char1));
+		assertEquals(1,characterListManager.addCharacterToAcc(acc1, char2));
+		assertEquals(1,characterListManager.addCharacterToAcc(acc1, char3));
+		
+		List<Character> lista = characterListManager.listCharacters(acc1);
+		assertEquals(3,lista.size());
+		
+		assertEquals(1,characterListManager.delCharacterFromAcc(acc1, char2));
+		
+		lista = characterListManager.listCharacters(acc1);
+		assertEquals(2,lista.size());
+		
+		assertEquals(lista.get(0).getNick(),char1.getNick());
+		assertEquals(lista.get(1).getNick(),char3.getNick());
+	}
+	
+	@Test
 	public void CharacterListPurgeTest(){
 		characterManager.clearCharacter();
 		accountManager.clearAccount();
@@ -215,6 +250,46 @@ public class ConnectionTest {
 		assertEquals(0,acc1List.size());
 		acc2List = characterListManager.listCharacters(acc2);
 		assertEquals(2,acc2List.size());
+	}
+	
+	@Test
+	public void ListAllCharacters(){
+		characterManager.clearCharacter();
+		
+		Character char1 = new Character("Char1" + (int)(Math.random() *1001), "Warrior", "Elf", 110);
+		Character char2 = new Character("Char2" + (int)(Math.random() *1001), "Warrior", "Elf", 110);
+		Character char3 = new Character("Char3" + (int)(Math.random() *1001), "Warrior", "Elf", 110);
+		
+		assertEquals(1,characterManager.addCharacter(char1));
+		assertEquals(1,characterManager.addCharacter(char2));
+		assertEquals(1,characterManager.addCharacter(char3));
+		
+		List<Character> chars = characterManager.getAll();
+		assertEquals(3,chars.size());
+	
+		assertEquals(chars.get(0).getNick(),char1.getNick());
+		assertEquals(chars.get(1).getNick(),char2.getNick());
+		assertEquals(chars.get(2).getNick(),char3.getNick());
+	}
+	
+	@Test
+	public void ListAllAccounts(){
+		accountManager.clearAccount();
+		
+		Account acc1 = new Account("Account1" + (int)(Math.random() *1001), "qwerty");
+		Account acc2 = new Account("Account2" + (int)(Math.random() *1001), "qwerty");
+		Account acc3 = new Account("Account3" + (int)(Math.random() *1001), "qwerty");
+		
+		assertEquals(1,accountManager.addAccount(acc1));
+		assertEquals(1,accountManager.addAccount(acc2));
+		assertEquals(1,accountManager.addAccount(acc3));
+		
+		List<Account> accs = accountManager.getAll();
+		assertEquals(3,accs.size());
+		
+		assertEquals(accs.get(0).getLogin(),acc1.getLogin());
+		assertEquals(accs.get(1).getLogin(),acc2.getLogin());
+		assertEquals(accs.get(2).getLogin(),acc3.getLogin());
 	}
 	
 	@Test
