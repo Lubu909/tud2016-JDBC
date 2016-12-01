@@ -1,9 +1,9 @@
-package manager;
+package main.java.com.tud2016JDBC.manager;
 
 import java.sql.Connection;
 import java.util.List;
 
-import model.Account;
+import main.java.com.tud2016JDBC.model.Account;
 
 public interface IAccountManager {
 	public Connection getConnection();

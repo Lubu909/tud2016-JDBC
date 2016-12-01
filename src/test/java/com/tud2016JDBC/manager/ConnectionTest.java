@@ -1,4 +1,4 @@
-package test;
+package test.java.com.tud2016JDBC.manager;
 
 import static org.junit.Assert.*;
 
@@ -7,13 +7,13 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import manager.CharacterManager;
-import manager.AccountManager;
-import manager.CharacterListManager;
+import main.java.com.tud2016JDBC.manager.CharacterManager;
+import main.java.com.tud2016JDBC.manager.AccountManager;
+import main.java.com.tud2016JDBC.manager.CharacterListManager;
 
-import model.Character;
-import model.Account;
-import model.CharacterList;
+import main.java.com.tud2016JDBC.model.Character;
+import main.java.com.tud2016JDBC.model.Account;
+import main.java.com.tud2016JDBC.model.CharacterList;
 
 public class ConnectionTest {
 	

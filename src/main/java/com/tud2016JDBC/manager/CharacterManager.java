@@ -1,9 +1,9 @@
-package manager;
+package main.java.com.tud2016JDBC.manager;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Character;
+import main.java.com.tud2016JDBC.model.Character;
 
 public class CharacterManager implements ICharacterManager{
 	private Connection conn;

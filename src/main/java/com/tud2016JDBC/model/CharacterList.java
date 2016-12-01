@@ -1,4 +1,4 @@
-package model;
+package main.java.com.tud2016JDBC.model;
 
 public class CharacterList {
 	private int idCharacterList;
